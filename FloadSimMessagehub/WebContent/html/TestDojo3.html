@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Demo: Stacked Monthly Sales</title>
+		<script src='../dojo-release-1.9.5/dojo195/dojo/dojo.js'></script>
+		<script>dojoConfig = {parseOnLoad: true}</script>
+		<script src='charting.js'></script>
+	</head>
+	<body>
+		<h1>Demo: Stacked Monthly Sales</h1>
+		<div id="chartNode" style="width:800px;height:400px;"></div>
+		<div id="legend"></div>
+		
+<script>
+dojo.require("dojox.charting.widget.Legend");
+dojo.require("dojox.charting.Chart2D");
+
+// Require the theme of our choosing
+// "Claro", new in Dojo 1.6, will be used
+dojo.require("dojox.charting.themes.Dollar");
+
+//this legend is created within an element with a "legend1" ID.
+		console.debug("hi there creating data");
+		chartData30 = [ 10000, 9200, 11811, 12000, 7662, 13887, 14200, 12222, 12000, 10009, 11288, 12099 ];
+		chartData20 = [ 1000, 2000, 7733, 876, 2783, 2899, 3888, 3277, 4299, 2345, 12345, 15763 ];
+		chartData10 = [ 1000, 1500, 7233, 576, 1783, 1899, 2888, 277, 3299, 1345, 345, 763 ];
+
+		console.debug("creating chart");
+		var chart = new dojox.charting.Chart2D("chartNode");
+
+		// Set the theme
+		chart.setTheme(dojox.charting.themes.Dollar);
+
+		// Add the only/default plot
+		//chart.addPlot("default", {type : "Area", markers : true });
+		//chart.addPlot("default", { type: "Area", tension:"S" })
+		//chart.addPlot("default", {type: "Lines"});
+		chart.addPlot("default", {type: "Markers"});
+		// Add axes
+		chart.addAxis("x");
+		chart.addAxis("y", {
+			min : 1000,
+			max : 30000,
+			vertical : true,
+			fixLower : "major",
+			fixUpper : "major"
+		});
+
+		console.debug("adding series");
+		chart.addSeries("RPS-30", chartData30, {
+			stroke : {
+				color : "green",
+				width : 3
+			},
+			fill : "#F0F0F0"
+		});
+
+		chart.addSeries("RPS-20", chartData20, {
+			stroke : {
+				color : "blue",
+				width : 3
+			},
+			fill : "#F0F0F0 "
+		});
+		
+		// Add the series of data
+		chart.addSeries("RPS-10", chartData10, {
+			stroke : {
+				color : "red",
+				width : 3
+			},
+			fill : "#F0F0F0 "
+		});
+		
+		console.debug("rending");
+		chart.render();
+		var legend1 = new dojox.charting.widget.Legend({
+			chart : chart
+		}, "legend");
+		
+</script>
+		
+		
+	</body>
+</html>
